@@ -48,7 +48,7 @@ public class MyView {
     }
 
     private Point2D projection(Point3D p) {
-        return new Point2D(p.getX() * f / p.getZ(), p.getY() * f / p.getZ());
+        return new Point2D(xs(p), ys(p));
     }
 
     private Point3D transform(Point3D p) {
