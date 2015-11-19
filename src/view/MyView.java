@@ -6,9 +6,7 @@ import model.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by eugeny on 04.11.2015.
- */
+
 public class MyView {
     private double f = 500;
 
