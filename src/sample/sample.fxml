@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
-
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="800.0"
-            xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <items>
           <Button mnemonicParsing="false" onAction="#draw" text="Button" />
+            <Button mnemonicParsing="false" onAction="#moveXplus" text="-&gt;" />
+            <Button mnemonicParsing="false" onAction="#moveXminus" text="&lt;-" />
+            <Button mnemonicParsing="false" onAction="#rotateXplus" text="Rx+" />
+            <Button mnemonicParsing="false" onAction="#rotateYplus" text="Ry+" />
         </items>
       </ToolBar>
    </top>

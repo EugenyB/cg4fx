@@ -47,4 +47,24 @@ public class Controller implements Initializable{
         view.drawFigure(figure,gc);
         gc.scale(.8,.8);
     }
+
+    public void moveXplus(ActionEvent actionEvent) {
+        view.moveFigure(10,0,0);
+        draw();
+    }
+
+    public void moveXminus(ActionEvent actionEvent) {
+        view.moveFigure(-10,0,0);
+        draw();
+    }
+
+    public void rotateXplus(ActionEvent actionEvent) {
+        view.rotateFigureX(10);
+        draw();
+    }
+
+    public void rotateYplus(ActionEvent actionEvent) {
+        view.rotateFigureY(10);
+        draw();
+    }
 }
