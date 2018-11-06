@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 
 public class MyView {
     private double f = 500;
+    private double cx = 300;
+    private double cy = 300;
+    private double cz = 700;
 
     private double[][] m = {
             {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}
@@ -109,9 +112,9 @@ public class MyView {
                 {-sin,0,cos,0},
                 {0,0,0,1}
         };
-        moveFigure(-300,-300,-700);
+        moveFigure(-cx,-cy,-cz);
         m = multiply(t,m);
-        moveFigure(300,300,700);
+        moveFigure(cx,cy,cz);
     }
 
     public void rotateFigureX(double angle) {
@@ -124,8 +127,8 @@ public class MyView {
                 {0,sin,cos,0},
                 {0,0,0,1}
         };
-        moveFigure(-300,-300,-700);
+        moveFigure(-cx,-cy,-cz);
         m = multiply(t,m);
-        moveFigure(300,300,700);
+        moveFigure(cx,cy,cz);
     }
 }

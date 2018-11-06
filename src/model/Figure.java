@@ -1,21 +1,19 @@
 package model;
 
-/**
- * Created by eugeny on 04.11.2015.
- */
 public class Figure {
-    private double[] x = {200, 400, 400, 200, 200, 400, 400, 200};
-    private double[] y = {400, 400, 200, 200, 400, 400, 200, 200};
-    private double[] z = {600, 600, 600, 600, 800, 800, 800, 800};
 
-    private int[][] p = {
-            {0,1,2,3},
-            {1,5,6,2},
-            {3,2,6,7},
-            {0,4,5,1},
-            {0,3,7,4},
-            {4,7,6,5}
-    };
+    public Figure(double[] x, double[] y, double[] z, int[][] p) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.p = p;
+    }
+
+    private double[] x;
+    private double[] y;
+    private double[] z;
+
+    private int[][] p;
 
     public int getFacesCount() {
         return p.length;
