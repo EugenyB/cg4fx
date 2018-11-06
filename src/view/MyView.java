@@ -1,8 +1,11 @@
 package view;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import model.*;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,9 +29,13 @@ public class MyView {
     }
 
     public void drawFigure(Figure f, GraphicsContext gc) {
-        int n = f.getFacesCount();
+        Polygon3D[] faces = new Polygon3D[f.getFacesCount()];
         for (int i = 0; i < f.getFacesCount(); i++) {
-            Polygon3D face = f.getFace(i);
+            faces[i] = f.getFace(i);
+        }
+        double[][] matrix = m;
+        Arrays.sort(faces, Comparator.comparingDouble(p->p.distanceFromO2(matrix)));
+        for (Polygon3D face : faces) {
             if (visible(face)) {
                 drawPolygon(face, gc);
             }
@@ -36,7 +43,7 @@ public class MyView {
     }
 
     private boolean visible(Polygon3D face) {
-        List<Point3D> points = face.getPoints().stream().map(this::transform).collect(Collectors.toList());
+        List<Point3D> points = face.getPoints().stream().map(p->p.transform(m)).collect(Collectors.toList());
         double xv = -points.get(0).getX();
         double yv = -points.get(0).getY();
         double zv = -points.get(0).getZ();
@@ -58,6 +65,8 @@ public class MyView {
 
     private void drawPolygon(Polygon3D polygon3D, GraphicsContext gc) {
         Polygon2D polygon2D = makeProjection(polygon3D);
+        gc.setFill(Color.WHITESMOKE);
+        gc.fillPolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
         gc.strokePolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
     }
 
@@ -66,7 +75,7 @@ public class MyView {
                 polygon3D
                         .getPoints()
                         .stream()
-                        .map(this::transform)
+                        .map(p->p.transform(m))
                         .map(this::projection)
                         .collect(Collectors.toList())
         );
@@ -74,13 +83,6 @@ public class MyView {
 
     private Point2D projection(Point3D p) {
         return new Point2D(xs(p), ys(p));
-    }
-
-    private Point3D transform(Point3D p) {
-        double x = m[0][0] * p.getX() + m[0][1] * p.getY() + m[0][2] * p.getZ() + m[0][3];
-        double y = m[1][0] * p.getX() + m[1][1] * p.getY() + m[1][2] * p.getZ() + m[1][3];
-        double z = m[2][0] * p.getX() + m[2][1] * p.getY() + m[2][2] * p.getZ() + m[2][3];
-        return new Point3D(x, y, z);
     }
 
     public void moveFigure(double dx, double dy, double dz) {

@@ -9,15 +9,21 @@ import java.util.List;
 public class Polygon3D {
     private List<Point3D> points;
 
-    public Polygon3D(Point3D... points) {
+    Polygon3D(Point3D... points) {
         this(Arrays.asList(points));
     }
 
-    public Polygon3D(List<Point3D> points) {
+    private Polygon3D(List<Point3D> points) {
         this.points = points;
     }
 
     public List<Point3D> getPoints() {
         return points;
+    }
+
+    public double distanceFromO2(double[][] m) {
+        return - points.stream()
+                .map(p->p.transform(m))
+                .mapToDouble(p->p.getX()*p.getX()+p.getY()*p.getY()+p.getZ()*p.getZ()).max().getAsDouble();
     }
 }
