@@ -12,6 +12,7 @@
            <Button mnemonicParsing="false" onAction="#moveXminus" text="&lt;-"/>
            <Button mnemonicParsing="false" onAction="#rotateXplus" text="Rx+"/>
            <Button mnemonicParsing="false" onAction="#rotateYplus" text="Ry+"/>
+           <Button mnemonicParsing="false" onAction="#rotateZplus" text="Rz+"/>
        </ToolBar>
    </top>
    <center>

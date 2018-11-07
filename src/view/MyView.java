@@ -9,9 +9,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class MyView {
-    private double f = 500;
+    private double f = 400;
     private double cx = 300;
     private double cy = 300;
     private double cz = 700;
@@ -33,8 +32,8 @@ public class MyView {
         for (int i = 0; i < f.getFacesCount(); i++) {
             faces[i] = f.getFace(i);
         }
-        double[][] matrix = m;
-        Arrays.sort(faces, Comparator.comparingDouble(p->p.distanceFromO2(matrix)));
+
+        Arrays.sort(faces, Comparator.comparingDouble(p->p.distanceFromO2(m)));
         for (Polygon3D face : faces) {
             if (visible(face)) {
                 drawPolygon(face, gc);
@@ -65,7 +64,7 @@ public class MyView {
 
     private void drawPolygon(Polygon3D polygon3D, GraphicsContext gc) {
         Polygon2D polygon2D = makeProjection(polygon3D);
-        gc.setFill(Color.WHITESMOKE);
+        gc.setFill(Color.WHITE);
         gc.fillPolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
         gc.strokePolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
     }
@@ -87,7 +86,10 @@ public class MyView {
 
     public void moveFigure(double dx, double dy, double dz) {
         double[][] t = {
-                {1,0,0,dx},{0,1,0,dy},{0,0,1,dz},{0,0,0,1}
+                {1,0,0,dx},
+                {0,1,0,dy},
+                {0,0,1,dz},
+                {0,0,0,1}
         };
         m = multiply(t,m);
     }
@@ -127,6 +129,21 @@ public class MyView {
                 {1,0,0,0},
                 {0,cos,-sin,0},
                 {0,sin,cos,0},
+                {0,0,0,1}
+        };
+        moveFigure(-cx,-cy,-cz);
+        m = multiply(t,m);
+        moveFigure(cx,cy,cz);
+    }
+
+    public void rotateFigureZ(double angle) {
+        angle = Math.toRadians(angle);
+        double sin = Math.sin(angle);
+        double cos = Math.cos(angle);
+        double[][] t = {
+                {cos,-sin,0,0},
+                {sin,cos,0,0},
+                {0,0,1,0},
                 {0,0,0,1}
         };
         moveFigure(-cx,-cy,-cz);

@@ -65,6 +65,11 @@ public class Controller implements Initializable{
         draw();
     }
 
+    public void rotateZplus() {
+        view.rotateFigureZ(10);
+        draw();
+    }
+
     public void rotateYplus() {
         view.rotateFigureY(10);
         draw();
