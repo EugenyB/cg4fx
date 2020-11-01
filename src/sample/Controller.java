@@ -1,9 +1,11 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -20,10 +22,13 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable{
 
     @FXML
-    Canvas canvas;
+    private CheckBox ensureVisibility;
 
     @FXML
-    Pane pane;
+    private Canvas canvas;
+
+    @FXML
+    private Pane pane;
 
     private Figure figure = null;
     private final MyView view = new MyView();
@@ -39,6 +44,7 @@ public class Controller implements Initializable{
     }
 
     private void draw() {
+        view.setVisibilityCheck(ensureVisibility.isSelected());
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.WHITESMOKE);
         gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
@@ -65,13 +71,28 @@ public class Controller implements Initializable{
         draw();
     }
 
+    public void rotateXminus() {
+        view.rotateFigureX(-10);
+        draw();
+    }
+
     public void rotateZplus() {
         view.rotateFigureZ(10);
         draw();
     }
 
+    public void rotateZminus() {
+        view.rotateFigureZ(-10);
+        draw();
+    }
+
     public void rotateYplus() {
         view.rotateFigureY(10);
+        draw();
+    }
+
+    public void rotateYminus() {
+        view.rotateFigureY(-10);
         draw();
     }
 
@@ -112,5 +133,9 @@ public class Controller implements Initializable{
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void repaint() {
+        draw();
     }
 }

@@ -22,6 +22,8 @@ public class MyView {
             {0, 0, 0, 1}
     };
 
+    boolean ensureVisibility = true;
+
     private double xs(Point3D p) {
         return p.getX() * f / p.getZ();
     }
@@ -38,8 +40,8 @@ public class MyView {
 
         Arrays.sort(faces, Comparator.comparingDouble(p -> p.distanceFromO2(m)));
         for (Polygon3D face : faces) {
-            if (visible(face)) {
-                drawPolygon(face, gc);
+            if (!ensureVisibility || visible(face)) {
+                drawPolygon(face, gc, ensureVisibility);
             }
         }
     }
@@ -65,12 +67,21 @@ public class MyView {
         return xn * xv + yn * yv + zn * zv > 0;
     }
 
-    private void drawPolygon(Polygon3D polygon3D, GraphicsContext gc) {
+    private void drawPolygon(Polygon3D polygon3D, GraphicsContext gc, boolean fill) {
         Polygon2D polygon2D = makeProjection(polygon3D);
-        gc.setFill(Color.WHITE);
-        gc.fillPolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
+        if (fill) {
+            gc.setFill(Color.WHITE);
+            gc.fillPolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
+        }
         gc.strokePolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
     }
+
+//    private void drawPolygon(Polygon3D polygon3D, GraphicsContext gc) {
+//        Polygon2D polygon2D = makeProjection(polygon3D);
+//        gc.setFill(Color.WHITE);
+//        gc.fillPolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
+//        gc.strokePolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
+//    }
 
     private Polygon2D makeProjection(Polygon3D polygon3D) {
         return new Polygon2D(
@@ -152,5 +163,9 @@ public class MyView {
         moveFigure(-cx, -cy, -cz);
         m = multiply(t, m);
         moveFigure(cx, cy, cz);
+    }
+
+    public void setVisibilityCheck(boolean selected) {
+        ensureVisibility = selected;
     }
 }
