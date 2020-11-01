@@ -9,11 +9,11 @@ public class Figure {
         this.p = p;
     }
 
-    private double[] x;
-    private double[] y;
-    private double[] z;
+    private final double[] x;
+    private final double[] y;
+    private final double[] z;
 
-    private int[][] p;
+    private final int[][] p;
 
     public int getFacesCount() {
         return p.length;

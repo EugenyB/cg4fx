@@ -7,7 +7,7 @@ import java.util.List;
  * Created by eugeny on 04.11.2015.
  */
 public class Polygon3D {
-    private List<Point3D> points;
+    private final List<Point3D> points;
 
     Polygon3D(Point3D... points) {
         this(Arrays.asList(points));
@@ -24,6 +24,6 @@ public class Polygon3D {
     public double distanceFromO2(double[][] m) {
         return - points.stream()
                 .map(p->p.transform(m))
-                .mapToDouble(p->p.getX()*p.getX()+p.getY()*p.getY()+p.getZ()*p.getZ()).max().getAsDouble();
+                .mapToDouble(p->p.getX()*p.getX()+p.getY()*p.getY()+p.getZ()*p.getZ()).max().orElse(0);
     }
 }

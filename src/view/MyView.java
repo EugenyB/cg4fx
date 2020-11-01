@@ -10,13 +10,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MyView {
-    private double f = 400;
-    private double cx = 300;
-    private double cy = 300;
-    private double cz = 700;
+    private final double f = 400;
+    private final double cx = 300;
+    private final double cy = 300;
+    private final double cz = 700;
 
     private double[][] m = {
-            {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}
+            {1, 0, 0, 0},
+            {0, 1, 0, 0},
+            {0, 0, 1, 0},
+            {0, 0, 0, 1}
     };
 
     private double xs(Point3D p) {
@@ -33,7 +36,7 @@ public class MyView {
             faces[i] = f.getFace(i);
         }
 
-        Arrays.sort(faces, Comparator.comparingDouble(p->p.distanceFromO2(m)));
+        Arrays.sort(faces, Comparator.comparingDouble(p -> p.distanceFromO2(m)));
         for (Polygon3D face : faces) {
             if (visible(face)) {
                 drawPolygon(face, gc);
@@ -42,7 +45,7 @@ public class MyView {
     }
 
     private boolean visible(Polygon3D face) {
-        List<Point3D> points = face.getPoints().stream().map(p->p.transform(m)).collect(Collectors.toList());
+        List<Point3D> points = face.getPoints().stream().map(p -> p.transform(m)).collect(Collectors.toList());
         double xv = -points.get(0).getX();
         double yv = -points.get(0).getY();
         double zv = -points.get(0).getZ();
@@ -55,9 +58,9 @@ public class MyView {
         double yb = points.get(2).getY() - points.get(0).getY();
         double zb = points.get(2).getZ() - points.get(0).getZ();
 
-        double xn = ya*zb - yb*za;
-        double yn = za*xb - zb*xa;
-        double zn = xa*yb - xb*ya;
+        double xn = ya * zb - yb * za;
+        double yn = za * xb - zb * xa;
+        double zn = xa * yb - xb * ya;
 
         return xn * xv + yn * yv + zn * zv > 0;
     }
@@ -74,7 +77,7 @@ public class MyView {
                 polygon3D
                         .getPoints()
                         .stream()
-                        .map(p->p.transform(m))
+                        .map(p -> p.transform(m))
                         .map(this::projection)
                         .collect(Collectors.toList())
         );
@@ -86,12 +89,12 @@ public class MyView {
 
     public void moveFigure(double dx, double dy, double dz) {
         double[][] t = {
-                {1,0,0,dx},
-                {0,1,0,dy},
-                {0,0,1,dz},
-                {0,0,0,1}
+                {1, 0, 0, dx},
+                {0, 1, 0, dy},
+                {0, 0, 1, dz},
+                {0, 0, 0, 1}
         };
-        m = multiply(t,m);
+        m = multiply(t, m);
     }
 
     private double[][] multiply(double[][] t, double[][] m) {
@@ -111,14 +114,14 @@ public class MyView {
         double sin = Math.sin(angle);
         double cos = Math.cos(angle);
         double[][] t = {
-                {cos,0,sin,0},
-                {0,1,0,0},
-                {-sin,0,cos,0},
-                {0,0,0,1}
+                {cos, 0, sin, 0},
+                {0, 1, 0, 0},
+                {-sin, 0, cos, 0},
+                {0, 0, 0, 1}
         };
-        moveFigure(-cx,-cy,-cz);
-        m = multiply(t,m);
-        moveFigure(cx,cy,cz);
+        moveFigure(-cx, -cy, -cz);
+        m = multiply(t, m);
+        moveFigure(cx, cy, cz);
     }
 
     public void rotateFigureX(double angle) {
@@ -126,14 +129,14 @@ public class MyView {
         double sin = Math.sin(angle);
         double cos = Math.cos(angle);
         double[][] t = {
-                {1,0,0,0},
-                {0,cos,-sin,0},
-                {0,sin,cos,0},
-                {0,0,0,1}
+                {1, 0, 0, 0},
+                {0, cos, -sin, 0},
+                {0, sin, cos, 0},
+                {0, 0, 0, 1}
         };
-        moveFigure(-cx,-cy,-cz);
-        m = multiply(t,m);
-        moveFigure(cx,cy,cz);
+        moveFigure(-cx, -cy, -cz);
+        m = multiply(t, m);
+        moveFigure(cx, cy, cz);
     }
 
     public void rotateFigureZ(double angle) {
@@ -141,13 +144,13 @@ public class MyView {
         double sin = Math.sin(angle);
         double cos = Math.cos(angle);
         double[][] t = {
-                {cos,-sin,0,0},
-                {sin,cos,0,0},
-                {0,0,1,0},
-                {0,0,0,1}
+                {cos, -sin, 0, 0},
+                {sin, cos, 0, 0},
+                {0, 0, 1, 0},
+                {0, 0, 0, 1}
         };
-        moveFigure(-cx,-cy,-cz);
-        m = multiply(t,m);
-        moveFigure(cx,cy,cz);
+        moveFigure(-cx, -cy, -cz);
+        m = multiply(t, m);
+        moveFigure(cx, cy, cz);
     }
 }

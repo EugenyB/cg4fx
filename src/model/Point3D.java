@@ -1,14 +1,12 @@
 package model;
 
-import view.MyView;
-
 /**
  * Created by eugeny on 04.11.2015.
  */
 public class Point3D {
-    private double x;
-    private double y;
-    private double z;
+    private final double x;
+    private final double y;
+    private final double z;
 
     public Point3D(double x, double y, double z) {
         this.x = x;

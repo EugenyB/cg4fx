@@ -26,7 +26,7 @@ public class Controller implements Initializable{
     Pane pane;
 
     private Figure figure = null;
-    private MyView view = new MyView();
+    private final MyView view = new MyView();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
