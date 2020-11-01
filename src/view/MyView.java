@@ -76,13 +76,6 @@ public class MyView {
         gc.strokePolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
     }
 
-//    private void drawPolygon(Polygon3D polygon3D, GraphicsContext gc) {
-//        Polygon2D polygon2D = makeProjection(polygon3D);
-//        gc.setFill(Color.WHITE);
-//        gc.fillPolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
-//        gc.strokePolygon(polygon2D.getXs(), polygon2D.getYs(), polygon2D.size());
-//    }
-
     private Polygon2D makeProjection(Polygon3D polygon3D) {
         return new Polygon2D(
                 polygon3D

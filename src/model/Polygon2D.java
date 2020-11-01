@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,14 +10,6 @@ public class Polygon2D {
 
     public Polygon2D(List<Point2D> points) {
         this.points = points;
-    }
-
-    public Polygon2D(Point2D... points) {
-        this(Arrays.asList(points));
-    }
-
-    public List<Point2D> getPoints() {
-        return points;
     }
 
     public double[] getXs() {
